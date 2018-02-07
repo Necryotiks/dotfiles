@@ -1,0 +1,7 @@
+#!/bin/bash
+eix-sync
+emerge --update --deep --complete-graph=y --with-bdeps=y --newuse @world
+emerge @preserved-rebuild || exit
+perl-cleaner --all
+revdep-rebuild
+emerge --depclean --exclude gentoo-sources

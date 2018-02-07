@@ -1,0 +1,10 @@
+#!/bin/bash
+FLEX=$(uname -r)
+sudo cp /usr/src/linux-$FLEX/.config /usr/src/linux
+sudo cp /usr/src/linux-$FLEX/.config ${HOME}/kernel
+cd /usr/src/linux
+sudo make menuconfig
+sudo make -j16 && sudo make -j16 modules_install
+sudo cp arch/x86/boot/bzImage /boot/EFI/Gentoo/gentoo.efi
+echo "Kernel compiled!"
+cd ~
