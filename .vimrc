@@ -22,7 +22,26 @@ au! bufread,bufnewfile *.conf set filetype=json
 " To install from command line: vim +PluginInstall +qall
 
 set nocompatible
+if has('python') " if dynamic py|py3, this line already activates python2.
+  let s:python_version = 2
+elseif has('python3')
+  let s:python_version = 3
+else
+  let s:python_version = 0
+endif
+echomsg 'Using python'.s:python_version
 filetype off
+
+"disable arrow keys because arrow keys ar for normies"
+nnoremap <up>    <nop>
+nnoremap <down>  <nop> 
+nnoremap <left>  <nop>
+nnoremap <right> <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
+inoremap <right> <nop>
+
 
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
