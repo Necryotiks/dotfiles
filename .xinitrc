@@ -2,4 +2,5 @@
 ~/.fehbg &
 urxvtd --quiet --opendisplay --fork &
 compton -bCG &
+setxkbmap dvorak &
 exec xmonad  

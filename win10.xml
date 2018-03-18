@@ -1,6 +1,6 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>win10</name>
-  <uuid>03ccb100-47ed-4538-9707-5df2eb5cb12f</uuid>
+  <uuid>5102e578-4019-4e19-8152-91472db3c9bd</uuid>
   <memory unit='KiB'>8388608</memory>
   <currentMemory unit='KiB'>8388608</currentMemory>
   <memoryBacking>
@@ -21,7 +21,7 @@
     <emulatorpin cpuset='10-11'/>
   </cputune>
   <os>
-    <type arch='x86_64' machine='pc-i440fx-2.10'>hvm</type>
+    <type arch='x86_64' machine='pc-i440fx-2.11'>hvm</type>
     <loader readonly='yes' type='pflash'>/usr/share/edk2-ovmf/OVMF_CODE.fd</loader>
     <nvram>/var/lib/libvirt/qemu/nvram/win10_VARS.fd</nvram>
   </os>
@@ -33,6 +33,9 @@
       <vapic state='on'/>
       <spinlocks state='on' retries='8191'/>
     </hyperv>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
     <vmport state='off'/>
   </features>
   <cpu mode='host-passthrough' check='none'>
@@ -44,15 +47,15 @@
     <timer name='hpet' present='no'/>
     <timer name='hypervclock' present='yes'/>
   </clock>
-  <on_poweroff>destroy</on_poweroff>
+  <on_poweroff>managedsave</on_poweroff>
   <on_reboot>restart</on_reboot>
   <on_crash>destroy</on_crash>
   <pm>
-    <suspend-to-mem enabled='no'/>
-    <suspend-to-disk enabled='no'/>
+    <suspend-to-mem enabled='yes'/>
+    <suspend-to-disk enabled='yes'/>
   </pm>
   <devices>
-    <emulator>/opt/qemu-test/bin/qemu-system-x86_64</emulator>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw' cache='none' io='native'/>
       <source file='/var/lib/libvirt/images/win10.img'/>
@@ -62,17 +65,19 @@
     </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw' cache='none'/>
-      <source file='/home/sergaljerk/Downloads/en_windows_10_education_version_1703_updated_march_2017_x64_dvd_10189297.iso'/>
-      <target dev='hdb' bus='ide'/>
+      <source file='/home/sergaljerk/Downloads/en_windows_10_enterprise_x64_dvd_6851151.iso'/>
+      <target dev='sdb' bus='sata'/>
       <readonly/>
+      <boot order='2'/>
       <address type='drive' controller='0' bus='0' target='0' unit='1'/>
     </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw' cache='none'/>
       <source file='/home/sergaljerk/Downloads/virtio-win-0.1.141(1).iso'/>
-      <target dev='sdb' bus='sata'/>
+      <target dev='sdc' bus='sata'/>
       <readonly/>
-      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
+      <boot order='3'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='2'/>
     </disk>
     <controller type='usb' index='0' model='ich9-ehci1'>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x7'/>
@@ -94,9 +99,6 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
     </controller>
     <controller type='pci' index='0' model='pci-root'/>
-    <controller type='ide' index='0'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x1'/>
-    </controller>
     <controller type='sata' index='0'>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
     </controller>
@@ -104,19 +106,12 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
     </controller>
     <interface type='direct'>
-      <mac address='52:54:00:34:8f:c7'/>
+      <mac address='52:54:00:4b:34:31'/>
       <source dev='enp7s0' mode='bridge'/>
       <model type='rtl8139'/>
+      <boot order='4'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
-    <serial type='pty'>
-      <target type='isa-serial' port='0'>
-        <model name='isa-serial'/>
-      </target>
-    </serial>
-    <console type='pty'>
-      <target type='serial' port='0'/>
-    </console>
     <input type='mouse' bus='ps2'/>
     <input type='keyboard' bus='ps2'/>
     <sound model='ich6'>
@@ -126,15 +121,13 @@
       <source>
         <address domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
       </source>
-      <boot order='2'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0a' function='0x0'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
         <address domain='0x0000' bus='0x0a' slot='0x00' function='0x1'/>
       </source>
-      <boot order='3'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x0a' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0b' function='0x0'/>
     </hostdev>
     <hostdev mode='subsystem' type='usb' managed='yes'>
       <source>
