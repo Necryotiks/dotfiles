@@ -3,4 +3,5 @@
 urxvtd --quiet --opendisplay --fork &
 compton -bCG &
 setxkbmap dvorak &
+pulseaudio -D &
 exec xmonad  

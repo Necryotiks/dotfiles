@@ -16,6 +16,7 @@ fi
 
 
 # Put your fun stuff here.
+[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
 genstub()
 {
 source genstub

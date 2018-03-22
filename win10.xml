@@ -1,6 +1,6 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>win10</name>
-  <uuid>5102e578-4019-4e19-8152-91472db3c9bd</uuid>
+  <uuid>7e3315bc-e6e6-4a9e-8f6b-358b5288383e</uuid>
   <memory unit='KiB'>8388608</memory>
   <currentMemory unit='KiB'>8388608</currentMemory>
   <memoryBacking>
@@ -47,7 +47,7 @@
     <timer name='hpet' present='no'/>
     <timer name='hypervclock' present='yes'/>
   </clock>
-  <on_poweroff>managedsave</on_poweroff>
+  <on_poweroff>destroy</on_poweroff>
   <on_reboot>restart</on_reboot>
   <on_crash>destroy</on_crash>
   <pm>
@@ -64,19 +64,19 @@
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
     <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw' cache='none'/>
+      <driver name='qemu' type='raw'/>
       <source file='/home/sergaljerk/Downloads/en_windows_10_enterprise_x64_dvd_6851151.iso'/>
       <target dev='sdb' bus='sata'/>
       <readonly/>
-      <boot order='2'/>
+      <boot order='3'/>
       <address type='drive' controller='0' bus='0' target='0' unit='1'/>
     </disk>
     <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw' cache='none'/>
+      <driver name='qemu' type='raw'/>
       <source file='/home/sergaljerk/Downloads/virtio-win-0.1.141(1).iso'/>
       <target dev='sdc' bus='sata'/>
       <readonly/>
-      <boot order='3'/>
+      <boot order='2'/>
       <address type='drive' controller='0' bus='0' target='0' unit='2'/>
     </disk>
     <controller type='usb' index='0' model='ich9-ehci1'>
@@ -106,12 +106,24 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
     </controller>
     <interface type='direct'>
-      <mac address='52:54:00:4b:34:31'/>
+      <mac address='52:54:00:68:bf:12'/>
       <source dev='enp7s0' mode='bridge'/>
       <model type='rtl8139'/>
       <boot order='4'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
+    <serial type='pty'>
+      <target type='isa-serial' port='0'>
+        <model name='isa-serial'/>
+      </target>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+    <channel type='unix'>
+      <target type='virtio' name='org.qemu.guest_agent.0'/>
+      <address type='virtio-serial' controller='0' bus='0' port='1'/>
+    </channel>
     <input type='mouse' bus='ps2'/>
     <input type='keyboard' bus='ps2'/>
     <sound model='ich6'>
