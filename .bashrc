@@ -19,9 +19,11 @@ fi
 [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
 genstub()
 {
-source genstub
+	source genstub
 }
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
+	exec startx
 fi
 export EDITOR=vim
+source ~/.git-prompt.sh
+PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
