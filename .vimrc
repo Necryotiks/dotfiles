@@ -1,4 +1,5 @@
 set background=dark
+set showcmd
 set number
 set autoindent
 set smartindent
@@ -6,8 +7,8 @@ set visualbell
 set t_vb=
 set number 
 set relativenumber
-set timeoutlen=10 ttimeoutlen=0 "No more ESC input delays
-
+set timeoutlen=1000 "No more ESC input delays
+set ttimeoutlen =10
 colorscheme badwolf
 
 autocmd BufNewFile,BufRead *.asm set syntax=mips
@@ -34,8 +35,7 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
-
-
+let mapleader = ","
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
