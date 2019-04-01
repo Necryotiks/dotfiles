@@ -25,6 +25,10 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	exec startx
 fi
 export EDITOR=vim
+export JAVA_HOME="/usr/libexec/jdk1.8.0_171"
+export PATH=$JAVA_HOME/bin:$PATH
+
+
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }

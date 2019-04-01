@@ -14,6 +14,11 @@ colorscheme badwolf
 autocmd BufNewFile,BufRead *.asm set syntax=mips
 au! BufRead,BufNewFile *.json set filetype=json
 au! bufread,bufnewfile *.conf set filetype=json
+au! bufread,bufnewfile *.h set filetype=c
+au! bufread,bufnewfile *.c set filetype=c
+au! bufread,bufnewfile *.hpp set filetype=cpp
+au! bufread,bufnewfile *.cpp set filetype=cpp
+au! bufread,bufnewfile *.tex set filetype=tex
 
 " Vundle (Required unless specified otherwise)
 " Brief help
@@ -35,6 +40,11 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+vnoremap <up>    <nop>
+vnoremap <down>  <nop>
+vnoremap <left>  <nop>
+vnoremap <right> <nop>
+
 let mapleader = ","
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -62,19 +72,22 @@ Plugin 'scrooloose/syntastic'
 
 "LaTeX
 Plugin 'lervag/vimtex'
-
+let g:tex_flavor = 'latex'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-"
+let g:syntastic_c_compiler = 'gcc'
+let g:syntastic_c_check_header = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_cpp_compiler_options = "-Wall -Wextra -Wpedantic"
+let g:syntastic_c_compiler_options = "-Wall -Wextra -Wpedantic"
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["asm"] }
+			\ "mode": "active",
+			\ "passive_filetypes": ["asm"] }
 
 " Airline
 Plugin 'bling/vim-airline'
@@ -99,12 +112,12 @@ set completeopt+=menuone,noinsert,noselect
 Plugin 'elzr/vim-json'
 
 augroup json_autocmd
-  autocmd!
-  autocmd FileType json set autoindent
-  autocmd FileType json set formatoptions=tcq2l
-  autocmd FileType json set textwidth=78 shiftwidth=2
-  autocmd FileType json set softtabstop=2 tabstop=8
-  autocmd FileType json set expandtab
+	autocmd!
+	autocmd FileType json set autoindent
+	autocmd FileType json set formatoptions=tcq2l
+	autocmd FileType json set textwidth=78 shiftwidth=2
+	autocmd FileType json set softtabstop=2 tabstop=8
+	autocmd FileType json set expandtab
 augroup END
 
 
