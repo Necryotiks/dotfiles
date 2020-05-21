@@ -11,6 +11,7 @@ set timeoutlen=1000 "No more ESC input delays
 set ttimeoutlen =10
 colorscheme badwolf
 
+syntax on
 autocmd BufNewFile,BufRead *.asm set syntax=mips
 au! BufRead,BufNewFile *.json set filetype=json
 au! bufread,bufnewfile *.conf set filetype=json
