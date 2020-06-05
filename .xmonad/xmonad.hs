@@ -11,7 +11,8 @@ main = do
 	terminal = "/usr/bin/urxvtc"
 	,borderWidth = bWidth
 	,layoutHook = smartBorders $ myLayout 
-	,manageHook = manageDocks <+> manageHook defaultConfig 
+	,manageHook = manageDocks <+> manageHook defaultConfig
+	,workspaces = ["browse", "irc", "dev", "etc"]
 	}  
 bWidth = 2 
 myLayout =avoidStruts (
