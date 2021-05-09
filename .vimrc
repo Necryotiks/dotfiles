@@ -8,7 +8,7 @@ set t_vb=
 set number 
 set relativenumber
 set timeoutlen=1000 "No more ESC input delays
-set ttimeoutlen =10
+set ttimeoutlen=10
 colorscheme badwolf
 
 syntax on
@@ -54,12 +54,6 @@ call vundle#begin()
 "Lets Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-"Fugitive
-Plugin 'tpope/vim-fugitive'
-
-"c.vim
-Plugin 'WolfgangMehner/c-support'
-
 "NERDtree
 Plugin 'scrooloose/nerdtree'
 map <C-b> :NERDTreeToggle<CR>
@@ -71,9 +65,6 @@ let g:NERDCommentEmptyLines = 1
 "Syntastic
 Plugin 'scrooloose/syntastic'
 
-"LaTeX
-Plugin 'lervag/vimtex'
-let g:tex_flavor = 'latex'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -112,6 +103,9 @@ set completeopt+=menuone,noinsert,noselect
 " JSON.vim
 Plugin 'elzr/vim-json'
 
+" Polyglot
+"Plugin 'sheerun/vim-polyglot'
+
 augroup json_autocmd
 	autocmd!
 	autocmd FileType json set autoindent
@@ -121,6 +115,8 @@ augroup json_autocmd
 	autocmd FileType json set expandtab
 augroup END
 
+" Bluespec SystemVerilog syntax
+Plugin 'mtikekar/vim-bsv'
 
 " All plugins must be added before the following line
 call vundle#end()
